@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    Distancia percorrida: <input type="text" id="ipt_distancia">
+    Tempo de duração da viagem: <input type="text" id="ipt_duracao">
+    Quantidade de passageiros: <input type="text" id="ipt_passageiros">
+    Hora de inicio da viagem: <input type="text" id="ipt_hora">
+
+    <button onclick="calcular()">Realizar viagem</button>
+
+
+    <div id="div_mensagem"></div>
+
+</body>
+
+
+</html>
+
+<script>
+    function calcular() {
+        var distancia = Number(ipt_distancia.value); //Distancia percorrida
+        var duracao = Number(ipt_duracao.value); //Tempo de duração da viagem
+        var passageiros = Number(ipt_passageiros.value); //Quantidade passageiros
+        var hora = Number(ipt_hora.value); //Hora de inicio da viagem: 
+
+        var custo = distancia * 0.77
+        var estimativa = distancia * 1.8
+
+        var estimativaAcrescimo = estimativa * 1.10;
+        var estimativaDecrescimo = estimativa * 0.90;
+
+        var adicionais = passageiros - 1; // passageiros adicionais
+        var custopassageiros = 0
+
+        var adicionalhora = custo * 1.11
+        var descontohora = custo * 0.92
+
+        var acrescimoduracao = custo * 0.07;
+        var descontoduracao = custo * 0.08
+
+        if (duracao >= estimativaAcrescimo) {
+            custo = custo + acrescimoduracao
+        }
+        if (duracao < estimativaDecrescimo) {
+            custo = custo - descontoduracao ;
+        }
+
+        if (passageiros > 1) {
+            custopassageiros =  adicionais * 3
+        }
+        if (hora <= 6) {
+            custo = descontohora;
+        }
+        if (hora >= 20) {
+            if (hora < 24) {
+               custo = adicionalhora;
+            }
+        }
+        var valortotal = custo + custopassageiros;
+
+        var qtdegasolina = distancia / 12;
+        var precogasolina = qtdegasolina * 4;
+
+        
+
+
+        div_mensagem.innerHTML = `A viagem foi iniciada às ${hora} horas e tinha estimativa de ${estimativa} minutos e durou ${duracao} minutos, percorrendo ${distancia} KM, com ${passageiros} passageiros, totalizando R$${valortotal} do preço da corrida. Com essa distância, foram consumidos ${qtdegasolina} litros de gasolina, totalizando R$${precogasolina} de consumo.`
+    }
+
+
+
+        
+    
+</script>

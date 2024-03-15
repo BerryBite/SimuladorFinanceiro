@@ -1,61 +1,74 @@
 <!DOCTYPE html>
 <html lang="Simulador Financeiro">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Simulador Financeiro</title>
+
+    <link rel="stylesheet" href="style.css">
 </head>
+
+<img src="https://github.com/BerryBite/.github/raw/main/berry-bite-logo-cor.png"
+alt="logo" class="png">
 <body>
-    <img style="height: 100px; width: 100px;" src="https://cdn.discordapp.com/attachments/1213269216522805261/1213366520802189312/berry-bite-logo-2.png?ex=65f536a1&is=65e2c1a1&hm=1089248f717fe7bc2a224662c748ff1ff59594bef465387cae4b84ea611adc57&" alt="logo">
-    <hr>
-    <h1>Simulador Financeiro</h1>
-     Média de Produção por safra em (kg): <input type="text" id="input_producao" placeholder= "Prod. morangos em(Kg)"> <br>     
-     Valor/(Kg) dos morangos:   <input type="text" id="input_valormorango" placeholder=" Preço morango por (Kg)"> <br>
-     
-     <br>
-     Perdas de safra por variação de temperatura (kg): <input type="text" id="input_safra" placeholder="Perca da safra em (kg)"> <br>
-     Perdas de safra por défict de irrigação (Kg):   <input type="text" id = "input_defict" placeholder="Perca da safra em (kg)"> <br>
-     <br>
-     Custos operacional por safra: <input type="text" id="input_operacional"><br>
-     Custo de irrigação por safra: <input type="text" id="input_irrigacao"><br>
+  
+    <br>
+    
+   <b> <h1>Simulador Financeiro</h1></b>
+    Média de Produção por safra em (kg): <input type="text" id="input_producao" placeholder="Prod. morangos em(Kg)">
+    <br>
+    Valor/(Kg) dos morangos: <input type="text" id="input_valormorango" placeholder=" Preço morango por (Kg)"> <br>
+
+    <br>
+    Perdas de safra por variação de temperatura (kg): <input type="text" id="input_safra"
+        placeholder="Perca da safra em (kg)"> <br>
+    Perdas de safra por défict de irrigação (Kg): <input type="text" id="input_defict"
+        placeholder="Perca da safra em (kg)"> <br>
+    <br>
+    Custos operacional por safra:(Insumos,manutenção predial etc...) <input type="text" id="input_operacional"><br>
+    Custo com energia: <input type="text" id="input_energia"><br>
+    Custo de irrigação por safra: <input type="text" id="input_irrigacao"><br>
 
 
-<div id="div_msg"></div>
-<br> <button onclick="calcular()"> CALCULAR </button>
+    <div id="div_msg"></div>
+    <br> <button onclick="calcular()"> CALCULAR </button>
 
 </body>
+
 </html>
 
 <script>
     var producao = 0;
-    var valormg = 0; 
+    var valormg = 0;
     var persafra = 0;
-    var perirrigacao = 0; 
+    var perirrigacao = 0;
     var opmensal = 0;
-    var opirrigacao = 0; 
-    
-
-function calcular(){
-    var producao = Number(input_producao.value);
-    var valormg = Number(input_valormorango.value);
-    var persafra = Number(input_safra.value);
-    var perirrigacao = Number(input_defict.value);
-    var opmensal = Number(input_operacional.value);
-    var opirrigacao = Number(input_irrigacao.value);
-    
-    var bruto = producao*valormg;
-    var perdas = (persafra+perirrigacao) * valormg;
-    var perdaop = opmensal+opirrigacao;
-    var totalperdas = perdas+perdaop;
-    
-    var liquido = bruto-totalperdas;
-    var percent = ((bruto-liquido)/bruto*100);
-    
+    var opirrigacao = 0;
 
 
+    function calcular() {
+        var producao = Number(input_producao.value);
+        var valormg = Number(input_valormorango.value);
+        var persafra = Number(input_safra.value);
+        var perirrigacao = Number(input_defict.value);
+        var opmensal = Number(input_operacional.value);
+        var opirrigacao = Number(input_irrigacao.value);
+        var energia = Number(input_energia.value);
+
+        var bruto = producao * valormg;
+        var perdas = (persafra + perirrigacao + energia) * valormg;
+        var perdaop = opmensal + opirrigacao;
+        var totalperdas = perdas + perdaop;
+
+        var liquido = bruto - totalperdas;
+        var percent = ((bruto - liquido) / bruto * 100);
 
 
-        div_msg.innerHTML = (`<br> <hr>
+
+
+
+        div_msg.innerHTML = (`<br> 
         <br>  Seu lucro bruto sem as deduções operacionais e falhas técnicas é de: R$ ${bruto} 
         <br>  Destacando os valores por falhas técnicas, sua produção sofreu uma perda de: R$ ${perdas} 
         <br>  Custo declarado da sua operação é de: R$ ${perdaop} 
@@ -64,7 +77,7 @@ function calcular(){
         <br>  O que resulta um percentual de perda de ${percent} % sobre os lucros da sua estufa.`);
 
 
-}
+    }
 
 
 
@@ -74,5 +87,5 @@ function calcular(){
 
 
 
-    
+
 </script>
